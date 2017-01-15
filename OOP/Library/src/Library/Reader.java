@@ -1,11 +1,15 @@
+package Library;
 import java.util.GregorianCalendar;
+
+import Library.Interfaces.ILibraryBook;
+import Library.Interfaces.IReader;
 
 /**
  * @author hudson
  */
 public class Reader extends Student implements IReader, Comparable<Object>{
 
-    public Reader(String name,String facultyNumber) {
+    public Reader(String name, String facultyNumber) {
         super(name, facultyNumber);
     }
 

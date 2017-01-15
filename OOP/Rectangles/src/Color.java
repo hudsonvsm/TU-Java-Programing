@@ -11,7 +11,7 @@ public class Color implements Comparable<Object> {
      * Alpha е канала за прозрачност
      */
 
-    public static final int COLOR_MULTIPLIER = 255;
+    public static final int COLOR_BIT_MASK = 255;
 
     private long red,
                  green,
@@ -67,9 +67,9 @@ public class Color implements Comparable<Object> {
     }
 
     private void rgbaToColors() {
-        this.red = (this.rgba >>> 16) & Color.COLOR_MULTIPLIER;
-        this.green = (this.rgba >>> 8) & Color.COLOR_MULTIPLIER;
-        this.blue = (this.rgba) & Color.COLOR_MULTIPLIER;
+        this.red = (this.rgba >>> 16) & Color.COLOR_BIT_MASK;
+        this.green = (this.rgba >>> 8) & Color.COLOR_BIT_MASK;
+        this.blue = (this.rgba) & Color.COLOR_BIT_MASK;
     }
 
     private void colors2rgb() {
@@ -78,7 +78,7 @@ public class Color implements Comparable<Object> {
 
     @Override
     public String toString() {
-        return "(Red: " + this.red + ", Green: " + this.green + ", Blue: " + this.blue + ", Alpha: " + this.rgba + ")";
+        return "(Red: " + this.red + ", Green: " + this.green + ", Blue: " + this.blue + ", Alpha: " + this.rgba + ")" + super.toString();
     }
 
     @Override

@@ -20,6 +20,10 @@ public class ColorRectangle extends Color implements Comparable<Object> {
         return Math.abs(this.iX2 - this.iX1) * Math.abs(this.iY2 - this.iY1);
     }
 
+    public int calcPerimeter() {
+        return 2 * Math.abs(this.iX2 - this.iX1) + 2 * Math.abs(this.iY2 - this.iY1);
+    }
+
     public int getX1() {
         return this.iX1;
     }
@@ -80,8 +84,56 @@ public class ColorRectangle extends Color implements Comparable<Object> {
         return false;
     }
 
+    public void translateX(int iPoints) {
+        this.iX1 += iPoints;
+        this.iX2 += iPoints;
+    }
+
+    public void translateY(int iPoints) {
+        this.iY2 += iPoints;
+        this.iY2 += iPoints;
+    }
+
+    public void translateXY(int iPoints){
+        this.translateX(iPoints);
+        this.translateY(iPoints);
+    }
+
+    public boolean isInside(int ptX, int ptY ) {
+        return (this.iX2 >= ptX
+                && this.iX1 <= ptX
+                && this.iY2 >= ptY
+                && this.iY2 <= ptY)
+            ? true
+            : false;
+    }
+
+    public ColorRectangle unionRect(ColorRectangle r) {
+        int x1 = this.iX1 > r.iX1 ? r.iX1 : this.iX1;
+        int x2 = this.iX2 < r.iX2 ? r.iX2 : this.iX2;
+        int y1 = this.iY1 > r.iY1 ? r.iY1 : this.iY1;
+        int y2 = this.iY2 < r.iY2 ? r.iY2 : this.iY2;
+
+        return new ColorRectangle(x1, x2, y1, y2, 0);
+    }
+
+    public ColorRectangle intersectionRect(ColorRectangle r) {
+        int x1 = this.iX1 < r.iX1 ? r.iX1 : this.iX1;
+        int x2 = this.iX2 > r.iX2 ? r.iX2 : this.iX2;
+        int y1 = this.iY1 < r.iY1 ? r.iY1 : this.iY1;
+        int y2 = this.iY2 > r.iY2 ? r.iY2 : this.iY2;
+
+        if (x2 <= x1 || y2 <= y1) {
+            return new ColorRectangle();
+        }
+
+        return new ColorRectangle(x1, x2, y1, y2, 0);
+    }
+
     @Override
     public String toString() {
-        return "area: " + this.calcArea() + " color: " + super.toString();
+        String coords = ", x1: " + this.iX1 + ", x2: " + this.iX2 + ", y1: " + this.iY1 + ", y2: " + this.iY2;
+
+        return "area: " + this.calcArea() + coords + ", color: " + super.toString();
     }
 }

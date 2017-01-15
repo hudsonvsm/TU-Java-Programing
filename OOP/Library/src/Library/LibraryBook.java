@@ -1,3 +1,7 @@
+package Library;
+import Library.Interfaces.ILibraryBook;
+import Library.Interfaces.IReader;
+
 /**
  * @author hudson
  */
