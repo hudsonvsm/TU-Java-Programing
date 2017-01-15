@@ -7,5 +7,5 @@ import java.util.ArrayList;
 public interface IFIle {
     ArrayList<String> load(String file) throws FileNotFoundException, IOException;
 
-    void save(String file);
+    void save();
 }

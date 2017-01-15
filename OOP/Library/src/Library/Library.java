@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.GregorianCalendar;
 
 import Library.Interfaces.IFIle;
@@ -15,9 +16,15 @@ import Library.Interfaces.IFIle;
 public class Library implements IFIle {
     private ArrayList<LibraryBook> books;
     private ArrayList<Reader> readers;
+    private String readersDB;
+    private String booksDB;
 
     public Library(String readersDB, String booksDB) {
+        this.setReadersDB(readersDB);
+
         this.loadReaders(readersDB);
+
+        this.setBooksDB(booksDB);
 
         this.loadBooks(booksDB);
     }
@@ -148,8 +155,66 @@ public class Library implements IFIle {
     }
 
     @Override
-    public void save(String file) {
-        // TODO Auto-generated method stub
+    public void save() {
+        try {
+            this.saveBooksToDB();
+            this.saveReadersToDB();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
+    }
+
+    private void saveBooksToDB() throws FileNotFoundException, IOException {
+        RandomAccessFile file = null;
+
+        try {
+            file = new RandomAccessFile(this.getBooksDB(), "rw");
+
+            for (LibraryBook book : this.books) {
+                file.writeBytes(book.toString());
+            }
+        } finally {
+            file.setLength(file.length() - 4);
+            file.close();
+        }
+    }
+
+    private void saveReadersToDB() throws FileNotFoundException, IOException {
+        RandomAccessFile file = null;
+
+        try {
+            file = new RandomAccessFile(this.getReadersDB(), "rw");
+
+            for (Reader reader : this.readers) {
+                file.writeBytes(reader.toString());
+            }
+        } finally {
+            file.setLength(file.length() - 4);
+            file.close();
+        }
+    }
+
+    public void sort() {
+        Collections.sort(this.books);
+        Collections.sort(this.readers);
+    }
+
+    public String getBooksDB() {
+        return this.booksDB;
+    }
+
+    public void setBooksDB(String booksDB) {
+        this.booksDB = booksDB;
+    }
+
+    public String getReadersDB() {
+        return this.readersDB;
+    }
+
+    public void setReadersDB(String readersDB) {
+        this.readersDB = readersDB;
     }
 }
