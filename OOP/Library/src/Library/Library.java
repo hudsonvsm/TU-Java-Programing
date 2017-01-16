@@ -137,19 +137,16 @@ public class Library implements IFIle {
 
     @Override
     public ArrayList<String> load(String fileData) throws FileNotFoundException, IOException {
-        RandomAccessFile file = null;
-        ArrayList<String> out = null;
-        String line;
+        ArrayList<String> out = new ArrayList<String>();
+        String line = null;
 
-        try {
-            file = new RandomAccessFile(fileData, "r");
+        RandomAccessFile file = new RandomAccessFile(fileData, "r");
 
-            while ((line = file.readLine()) != null) {
-                out.add(line);
-            }
-        } finally {
-            file.close();
+        while ((line = file.readLine()) != null) {
+            out.add(line);
         }
+
+        file.close();
 
         return out;
     }

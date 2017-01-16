@@ -6,7 +6,9 @@ public class ColorRectangle extends Color implements Comparable<Object> {
 
     private int iX1, iY1, iX2, iY2;
 
-    public ColorRectangle() { }
+    public ColorRectangle() {
+        this(0, 0, 0, 0, 0);
+    }
 
     public ColorRectangle(int iX1, int iY1, int iX2, int iY2, long c) {
         super(c);
