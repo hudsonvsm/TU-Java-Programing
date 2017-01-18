@@ -16,31 +16,25 @@ public class EMail extends EMailMessage implements IEMail, Comparable<EMail> {
         String[] emailParts = line.split("-|@|(:=)");
 
         this.setNumber(Integer.parseInt(emailParts[0]));
-        this.setIdent(emailParts[2]);
-        this.setProvider(emailParts[3]);
-        this.setEMailMessage(emailParts[4]);
+        this.setIdent(emailParts[1]);
+        this.setProvider(emailParts[2]);
+        this.setEMailMessage(emailParts[3]);
     }
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
-            return true;
-        }
-
-        if(obj == null) {
+        if(obj == null || obj.getClass() != this.getClass()) {
             return false;
         }
 
-        if(obj.getClass() != this.getClass()) {
-            return false;
-        }
+        if(obj == this) return true;
 
-        return this.provider.equals(((EMail) obj).getProvider());
+        return (this.compareTo((EMail) obj) == 0) ? true : false;
     }
 
     @Override
-    public int compareTo(EMail obj) {
-        return this.getProvider().compareTo(obj.getProvider());
+    public int compareTo(EMail email) {
+        return this.toString().compareTo(email.toString());
     }
 
     @Override
@@ -65,7 +59,7 @@ public class EMail extends EMailMessage implements IEMail, Comparable<EMail> {
 
     @Override
     public String toString() {
-        return "EMail(Number: " + this.getNumber() + ", ID: " + this.getIdent() + ", Provider: " + this.getProvider() + ", Message='" + this.getEMailMessage() + ')' + super.toString();
+        return "EMail(Number: " + this.getNumber() + ", ID: " + this.getIdent() + ", Provider: " + this.getProvider() + ", Message='" + this.getEMailMessage() + ')';
     }
 
     public int getNumber() {

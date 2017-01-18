@@ -2,6 +2,7 @@ package email;
 
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -56,35 +57,35 @@ public class PostBox implements IPost {
 
     @Override
     public void composeMessage(String fileName) {
-        File f = new File(fileName);
-        if (!f.exists()) {
-            System.out.println("Cannot find file: " + f.getAbsolutePath());
-            return;
-        }
+        File file = null;
 
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(f));
+            file = new File(fileName);
+            BufferedWriter writer = new BufferedWriter(new FileWriter(file));
 
             for (EMail cl : this.getOutboundEmails()) {
                 writer.write(cl.toString());
             }
 
             writer.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("Cannot find file: " + file.getAbsolutePath());
+            System.out.println("Exception: " + e.getLocalizedMessage());
+            e.printStackTrace();
         } catch (IOException e) {
-            System.out.println("Exception while write: " + e);
+            System.out.println("Exception while write: " + e.getLocalizedMessage());
+            e.printStackTrace();
         }
     }
 
     @Override
     public void getMessage(String fileName) {
-        File f = new File(fileName);
-        if (!f.exists()) {
-            System.out.println("Cannot find file: " + f.getAbsolutePath());
-            return;
-        }
+        File file = null;
 
         try {
-            LineNumberReader reader = new LineNumberReader(new FileReader(f));
+            file = new File(fileName);
+
+            LineNumberReader reader = new LineNumberReader(new FileReader(file));
             String line = null;
 
             while ((line = reader.readLine()) != null) {
@@ -95,8 +96,13 @@ public class PostBox implements IPost {
             }
 
             reader.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("Cannot find file: " + file.getAbsolutePath());
+            System.out.println("Exception: " + e.getLocalizedMessage());
+            e.printStackTrace();
         } catch (IOException e) {
-            System.out.println("Exception: " + e);
+            System.out.println("Exception: " + e.getLocalizedMessage());
+            e.printStackTrace();
         }
     }
 

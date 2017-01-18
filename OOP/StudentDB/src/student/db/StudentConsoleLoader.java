@@ -1,56 +1,32 @@
 package student.db;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-
 public class StudentConsoleLoader implements StudentDataLoader {
-    // fill data from file loader.
-    private List<StudentConsoleLoader> students = new ArrayList<StudentConsoleLoader>();
+    private String facultyNumberPrompt = "Faculty number: ";
+    private String firstNamePrompt = "First name: ";
+    private String familyNamePrompt = "Family name: ";
+    private String facultyNumber;
+    private String firstName;
+    private String familyName;
 
-    private static String facultyNumber;
-    private static String firstName;
-    private static String familyName;
-
-//    public StudentConsoleLoader(String fNumber, String firstName, String familyName) {
-//        StudentConsoleLoader.facultyNumber = fNumber;
-//        StudentConsoleLoader.firstName = firstName;
-//        StudentConsoleLoader.familyName = familyName;
-//    }
-
-    public StudentConsoleLoader()
-    {
-        StudentConsoleLoader.readFromConsole();
+    public StudentConsoleLoader (){
+        this.facultyNumber = Console.readLine(this.facultyNumberPrompt);
+        this.firstName = Console.readLine(this.firstNamePrompt);
+        this.familyName = Console.readLine(this.familyNamePrompt);
     }
 
     @Override
     public String getFacultyNumber() {
-        return StudentConsoleLoader.facultyNumber;
+        return this.facultyNumber;
     }
 
     @Override
-    public String getName() {
-        return StudentConsoleLoader.firstName;
+    public String getFirstName() {
+        return this.firstName;
     }
 
     @Override
     public String getFamilyName() {
-        return StudentConsoleLoader.familyName;
+        return this.familyName;
     }
 
-    private static void readFromConsole()
-    {
-        // TODO use Console or other class.
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter F.Number:");
-        StudentConsoleLoader.facultyNumber = scanner.nextLine();
-
-        System.out.println("Enter First Name:");
-        StudentConsoleLoader.firstName = scanner.nextLine();
-
-        System.out.println("Enter Last Name:");
-        StudentConsoleLoader.familyName = scanner.nextLine();
-
-        scanner.close();
-    }
 }

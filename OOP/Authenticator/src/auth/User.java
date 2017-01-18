@@ -40,9 +40,9 @@ class User extends Person implements Comparable<Object> {
 
     @Override
     public int compareTo(Object obj) {
-        User casted = (User) obj;
+        User other = (User) obj;
 
-        String objToCompare = casted.getUserName() + casted.getPassword() + casted.getAge();
+        String objToCompare = other.getUserName() + other.getPassword() + other.getAge();
         String thisToCompare = this.getUserName() + this.getPassword() + super.getAge();
 
         return thisToCompare.compareTo(objToCompare);

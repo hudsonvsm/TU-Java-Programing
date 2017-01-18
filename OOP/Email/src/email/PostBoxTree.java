@@ -22,9 +22,8 @@ public class PostBoxTree implements IOInterface {
         return this.outboundEmails;
     }
 
-    public void fillOut(Collection<EMail> fromColl)
-    {
-        this.getOutboundEmailCollection().addAll(fromColl);
+    public void fillOut(Collection<EMail> fromCollection) {
+        this.getOutboundEmailCollection().addAll(fromCollection);
     }
 
     public List<EMail> providerSort() {

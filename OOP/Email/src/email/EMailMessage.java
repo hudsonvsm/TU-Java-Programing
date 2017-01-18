@@ -1,20 +1,16 @@
 package email;
 
-
-public abstract class EMailMessage
-{
+public abstract class EMailMessage {
     protected String eMailMessage;
 
     public EMailMessage() {
         this("");
     }
 
-    public EMailMessage(String strEMailMessage) {
-        this.eMailMessage = strEMailMessage;
+    public EMailMessage(String eMailMessage) {
+        this.eMailMessage = eMailMessage;
     }
 
-
-    public abstract void setEMailMessage(String mess); // изпращане на съобщение
-    public abstract String getEMailMessage(); // получаване на съобщение
-
+    public abstract void setEMailMessage(String eMailMessage);
+    public abstract String getEMailMessage();
 }

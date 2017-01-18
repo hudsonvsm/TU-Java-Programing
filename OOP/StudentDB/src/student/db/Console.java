@@ -9,9 +9,9 @@ public class Console {
     }
 
     public static String readLine(String prompt) {
-        String out = System.console().readLine();
+        Console.printPrompt(prompt);
 
-        return out;
+        return Console.readLine();
     }
 
     public static int readInt(String prompt) {

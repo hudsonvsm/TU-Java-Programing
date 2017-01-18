@@ -2,6 +2,6 @@ package student.db;
 
 public interface StudentDataLoader {
     String getFacultyNumber();
-    String getName();
+    String getFirstName();
     String getFamilyName();
 }
